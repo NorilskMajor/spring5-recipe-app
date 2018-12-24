@@ -1,6 +1,7 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -12,10 +13,13 @@ public class Recipe {
     private String description;
     private Integer prepTime;
     private Integer cookTime;
-    private Integer setvTime;
+    private Integer setTime;
     private String source;
     private String url;
     private String directions;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredient;
 
     @Lob
     private Byte[] image;
@@ -55,12 +59,12 @@ public class Recipe {
         this.cookTime = cookTime;
     }
 
-    public Integer getSetvTime() {
-        return setvTime;
+    public Integer getSetTime() {
+        return setTime;
     }
 
-    public void setSetvTime(Integer setvTime) {
-        this.setvTime = setvTime;
+    public void setSetTime(Integer setTime) {
+        this.setTime = setTime;
     }
 
     public String getSource() {
@@ -101,5 +105,13 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Set<Ingredient> getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Set<Ingredient> ingredient) {
+        this.ingredient = ingredient;
     }
 }
